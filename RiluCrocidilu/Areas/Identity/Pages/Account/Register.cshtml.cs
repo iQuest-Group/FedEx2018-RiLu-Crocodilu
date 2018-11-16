@@ -92,6 +92,7 @@ namespace RiluCrocidilu.Areas.Identity.Pages.Account
                     newUser.FirstName = Input.FirstName;
                     newUser.LastName = Input.LastName;
                     newUser.AspNetUserId = registeredUser.Id;
+                    newUser.Email = Input.Email;
 
                     _context.ModuleUser.AddRange(newUser);
                     await _context.SaveChangesAsync();

@@ -8,6 +8,11 @@ namespace RiluCrocidilu.Models
         public ModuleUser()
         {
             Attendance = new HashSet<Attendance>();
+            ChatMessageToUser = new HashSet<ChatMessage>();
+            ChatMessageUser = new HashSet<ChatMessage>();
+            LoggedInUsers = new HashSet<LoggedInUsers>();
+            PrivateMessageToUser = new HashSet<PrivateMessage>();
+            PrivateMessageUser = new HashSet<PrivateMessage>();
         }
 
         public int UserId { get; set; }
@@ -18,11 +23,11 @@ namespace RiluCrocidilu.Models
         public string ConnectionId { get; set; }
 
         public AspNetUsers AspNetUser { get; set; }
-        public ChatMessage ChatMessageToUser { get; set; }
-        public ChatMessage ChatMessageUser { get; set; }
-        public LoggedInUsers LoggedInUsers { get; set; }
-        public PrivateMessage PrivateMessageToUser { get; set; }
-        public PrivateMessage PrivateMessageUser { get; set; }
         public ICollection<Attendance> Attendance { get; set; }
+        public ICollection<ChatMessage> ChatMessageToUser { get; set; }
+        public ICollection<ChatMessage> ChatMessageUser { get; set; }
+        public ICollection<LoggedInUsers> LoggedInUsers { get; set; }
+        public ICollection<PrivateMessage> PrivateMessageToUser { get; set; }
+        public ICollection<PrivateMessage> PrivateMessageUser { get; set; }
     }
 }

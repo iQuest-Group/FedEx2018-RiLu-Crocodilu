@@ -5,21 +5,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
 <div>
-    <table>
-        @foreach(var item in Model)
+    <table border="1" cellspacing="2" cellpadding="3">
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
                     @item.UserName
                 </td>
                 <td class="Attendance">
-                    @item.IsAttending
+                    @if(item.IsAttending == true)
+                    {
+                    <a style="background-color:green; color:white">Partikip</a>
+                    }
+                    else
+                    {
+                    <a style="background-color:red">NuPartikip</a>
+                    }
                 </td>
             </tr>
         }
     </table>
 </div>
+
 

@@ -80,18 +80,6 @@ namespace RiluCrocidilu.Models
             {
                 entity.HasKey(e => e.MessageId);
 
-                entity.HasIndex(e => e.RoomId)
-                    .HasName("UQ__ChatMess__3286393850277CE4")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.ToUserId)
-                    .HasName("UQ__ChatMess__FC06546EA4A6C8D6")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.UserId)
-                    .HasName("UQ__ChatMess__1788CC4DB3C8E25E")
-                    .IsUnique();
-
                 entity.Property(e => e.MessageId).HasColumnName("MessageID");
 
                 entity.Property(e => e.TimeStamp)
@@ -99,19 +87,19 @@ namespace RiluCrocidilu.Models
                     .HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Room)
-                    .WithOne(p => p.ChatMessage)
-                    .HasForeignKey<ChatMessage>(d => d.RoomId)
-                    .HasConstraintName("FK__ChatMessa__RoomI__245D67DE");
+                    .WithMany(p => p.ChatMessage)
+                    .HasForeignKey(d => d.RoomId)
+                    .HasConstraintName("FK__ChatMessa__RoomI__44CA3770");
 
                 entity.HasOne(d => d.ToUser)
-                    .WithOne(p => p.ChatMessageToUser)
-                    .HasForeignKey<ChatMessage>(d => d.ToUserId)
-                    .HasConstraintName("FK__ChatMessa__ToUse__2645B050");
+                    .WithMany(p => p.ChatMessageToUser)
+                    .HasForeignKey(d => d.ToUserId)
+                    .HasConstraintName("FK__ChatMessa__ToUse__46B27FE2");
 
                 entity.HasOne(d => d.User)
-                    .WithOne(p => p.ChatMessageUser)
-                    .HasForeignKey<ChatMessage>(d => d.UserId)
-                    .HasConstraintName("FK__ChatMessa__UserI__25518C17");
+                    .WithMany(p => p.ChatMessageUser)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__ChatMessa__UserI__45BE5BA9");
             });
 
             modelBuilder.Entity<ChatRoom>(entity =>
@@ -153,27 +141,19 @@ namespace RiluCrocidilu.Models
             {
                 entity.HasKey(e => e.LoggedInUserId);
 
-                entity.HasIndex(e => e.RoomId)
-                    .HasName("UQ__LoggedIn__3286393870A135A5")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.UserId)
-                    .HasName("UQ__LoggedIn__1788CC4DCC6AFFEB")
-                    .IsUnique();
-
                 entity.Property(e => e.LoggedInUserId).HasColumnName("LoggedInUserID");
 
                 entity.Property(e => e.ConnectionId).HasMaxLength(256);
 
                 entity.HasOne(d => d.Room)
-                    .WithOne(p => p.LoggedInUsers)
-                    .HasForeignKey<LoggedInUsers>(d => d.RoomId)
-                    .HasConstraintName("FK__LoggedInU__RoomI__339FAB6E");
+                    .WithMany(p => p.LoggedInUsers)
+                    .HasForeignKey(d => d.RoomId)
+                    .HasConstraintName("FK__LoggedInU__RoomI__4B7734FF");
 
                 entity.HasOne(d => d.User)
-                    .WithOne(p => p.LoggedInUsers)
-                    .HasForeignKey<LoggedInUsers>(d => d.UserId)
-                    .HasConstraintName("FK__LoggedInU__UserI__32AB8735");
+                    .WithMany(p => p.LoggedInUsers)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__LoggedInU__UserI__4A8310C6");
             });
 
             modelBuilder.Entity<Module>(entity =>
@@ -229,14 +209,6 @@ namespace RiluCrocidilu.Models
 
             modelBuilder.Entity<PrivateMessage>(entity =>
             {
-                entity.HasIndex(e => e.ToUserId)
-                    .HasName("UQ__PrivateM__FC06546E693CF5D0")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.UserId)
-                    .HasName("UQ__PrivateM__1788CC4D5FBDFBEC")
-                    .IsUnique();
-
                 entity.Property(e => e.PrivateMessageId).HasColumnName("PrivateMessageID");
 
                 entity.Property(e => e.TimeStamp)
@@ -244,14 +216,14 @@ namespace RiluCrocidilu.Models
                     .HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.ToUser)
-                    .WithOne(p => p.PrivateMessageToUser)
-                    .HasForeignKey<PrivateMessage>(d => d.ToUserId)
-                    .HasConstraintName("FK__PrivateMe__ToUse__2CF2ADDF");
+                    .WithMany(p => p.PrivateMessageToUser)
+                    .HasForeignKey(d => d.ToUserId)
+                    .HasConstraintName("FK__PrivateMe__ToUse__40F9A68C");
 
                 entity.HasOne(d => d.User)
-                    .WithOne(p => p.PrivateMessageUser)
-                    .HasForeignKey<PrivateMessage>(d => d.UserId)
-                    .HasConstraintName("FK__PrivateMe__UserI__2BFE89A6");
+                    .WithMany(p => p.PrivateMessageUser)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__PrivateMe__UserI__40058253");
             });
 
             modelBuilder.Entity<Resources>(entity =>
