@@ -93,7 +93,7 @@ namespace RiluCrocidilu.Areas.Identity.Pages.Account
                     newUser.LastName = Input.LastName;
                     newUser.AspNetUserId = registeredUser.Id;
 
-                    _context.ModuleUser.AddRange();
+                    _context.ModuleUser.AddRange(newUser);
                     await _context.SaveChangesAsync();
 
                     return LocalRedirect(returnUrl);
