@@ -1,0 +1,39 @@
+﻿
+@using Microsoft.AspNetCore.Http
+@{ 
+    RiluCrocidilu.Models.HomeViewModels.MenuViewModel model = (RiluCrocidilu.Models.HomeViewModels.MenuViewModel)ViewData["ModulesModel"];
+}
+
+<nav class="navigation">
+    <ul class="mainmenu">
+        @if (model != null)
+        {
+            @foreach (var item in model.Modules)
+            {
+                <li>
+                    <a href="">Module @item.ModuleId</a>
+                    <ul class="submenu">
+                        <li><a asp-controller="Modules" asp-action="Details" asp-route-id="@item.ModuleId">Overview</a></li>
+                        <li><a asp-controller="Schedules" asp-action="Index" asp-route-id="@item.ModuleId">Schedule</a></li>
+                        <li>
+                            <a>Lessons</a>
+                            <ul class="submenu2">
+                                @foreach (var lesson in item.Lesson)
+                                {
+                                    <li><a>Lesson @lesson.LessonId</a>
+                                        <ul class="submenu3">
+                                            <li><a asp-controller="Presentation" asp-action="Index" asp-route-id="@lesson.LessonId">Presentation</a></li>
+                                            <li><a asp-controller="Resources" asp-action="Index" asp-route-id="@lesson.LessonId">Resources</a></li>
+                                            <li><a asp-controller="Homework" asp-action="Index" asp-route-id="@lesson.LessonId">Homework</a></li>
+                                        </ul>                                                                                     
+                                    </li>                                      
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            }
+        }
+    </ul>
+</nav>
+
