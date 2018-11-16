@@ -1,0 +1,31 @@
+﻿@model List<RiluCrocidilu.Models.HomeViewModels.AttendanceViewModel.DisplayUser>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <table border="1" cellspacing="2" cellpadding="3">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.UserName
+                </td>
+                <td class="Attendance">
+                    @if(item.IsAttending == true)
+                    {
+                    <a style="background-color:green; color:white">Partikip</a>
+                    }
+                    else
+                    {
+                    <a style="background-color:red">NuPartikip</a>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+

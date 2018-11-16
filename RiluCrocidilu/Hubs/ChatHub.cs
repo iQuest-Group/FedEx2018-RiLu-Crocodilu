@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using RiluCrocidilu.Controllers;
 using RiluCrocidilu.Models;
 using System;
 using System.Collections.Generic;
@@ -19,33 +20,40 @@ namespace RiluCrocidilu.Hubs
 
         public async Task Send(string name, string message)
         {
-            if (Clients != null)
+            try
             {
-                ChatMessage mess = new ChatMessage();
+                if (Clients != null)
+                {
+                    ChatMessage mess = new ChatMessage();
 
-                string[] userName = name.Split(new char[] { ' ' }, 2);
-                string fn = userName[1];
-                string ln = userName[0];
-                var userId = _context.ModuleUser.Where(u => u.FirstName == fn && u.LastName == ln).Select(u => u.UserId).FirstOrDefault();
+                    string[] userName = name.Split(new char[] { ' ' }, 2);
+                    string fn = userName[1];
+                    string ln = userName[0];
+                    var userId = _context.ModuleUser.Where(u => u.FirstName == fn && u.LastName == ln).Select(u => u.UserId).FirstOrDefault();
 
-                mess.Text = message;
-                mess.UserId = userId;
-                //mess.Timestamp = DateTime.Now;
-                _context.ChatMessage.AddRange(mess);
+                    mess.Text = message;
+                    mess.UserId = userId;
+                    //mess.Timestamp = DateTime.Now;
+                    _context.ChatMessage.AddRange(mess);
 
-                _context.SaveChanges();
+                    _context.SaveChanges();
 
-                // Call the addMessage method on all clients
-                await Clients.All.SendAsync("addNewMessage", name, message);
-                //Clients.All.addNewMessage(name, message);
+                    // Call the addMessage method on all clients
+                    await Clients.All.SendAsync("addNewMessage", name, message);
+                    //Clients.All.addNewMessage(name, message);
+                }
             }
+            catch(Exception ex)
+            {
+                var ext = ex.ToString();
+            }
+
+            
         }
 
         public override async Task OnConnectedAsync()
         {
             var connectionId = Context.ConnectionId;
-            //string firstName = Context.Request.HttpContext.Session.GetString("Nume");
-            //string lastName = Context.Request.HttpContext.Session.GetString("Prenume");
             var name = Context.User.Identity.Name;
             var user = await _context.ModuleUser.Where(u => u.Email == name).FirstOrDefaultAsync();
             if(user != null)
@@ -67,7 +75,7 @@ namespace RiluCrocidilu.Hubs
                 }
 
                 var userName = user.LastName + " " + user.FirstName;
-                await Clients.Caller.SendAsync("onConnected", user.UserId, connectionId, userName, OnLineUser.onLineUserList);
+                await Clients.Caller.SendAsync("onConnectedAsync", user.UserId, connectionId, userName, OnLineUser.onLineUserList);
                 await Clients.AllExcept(connectionId).SendAsync("newUserConnected", user.UserId, userName, OnLineUser.onLineUserList);
                 //Clients.Caller.onConnected(user.UserID, connectionId, userName, OnLineUser.onLineUserList);
                 //Clients.AllExcept(connectionId).newUserConnected(user.UserID, userName, OnLineUser.onLineUserList);
@@ -92,7 +100,7 @@ namespace RiluCrocidilu.Hubs
                 _context.SaveChanges();
                 OnLineUser.RemoveUser(connectionId, user.UserId);
 
-                await Clients.AllExcept(connectionId).SendAsync("onUserDisconnected", user.UserId, userName, OnLineUser.onLineUserList);
+                await Clients.AllExcept(connectionId).SendAsync("onUserDisconnectedAsync", user.UserId, userName, OnLineUser.onLineUserList);
                 //Clients.AllExcept(connectionId).onUserDisconnected(user.UserId, userName, OnLineUser.onLineUserList);
             }
             await base.OnDisconnectedAsync(exception);
