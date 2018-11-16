@@ -1,6 +1,6 @@
 ﻿
 @using Microsoft.AspNetCore.Http
-@{ 
+@{
     RiluCrocidilu.Models.HomeViewModels.MenuViewModel model = (RiluCrocidilu.Models.HomeViewModels.MenuViewModel)ViewData["ModulesModel"];
 }
 
@@ -20,13 +20,14 @@
                             <ul class="submenu2">
                                 @foreach (var lesson in item.Lesson)
                                 {
-                                    <li><a>Lesson @lesson.LessonId</a>
+                                    <li>
+                                        <a>Lesson @lesson.LessonId</a>
                                         <ul class="submenu3">
                                             <li><a asp-controller="Presentation" asp-action="Index" asp-route-id="@lesson.LessonId">Presentation</a></li>
                                             <li><a asp-controller="Resources" asp-action="Index" asp-route-id="@lesson.LessonId">Resources</a></li>
                                             <li><a asp-controller="Homework" asp-action="Index" asp-route-id="@lesson.LessonId">Homework</a></li>
-                                        </ul>                                                                                     
-                                    </li>                                      
+                                        </ul>
+                                    </li>
                                 }
                             </ul>
                         </li>
@@ -36,4 +37,3 @@
         }
     </ul>
 </nav>
-
