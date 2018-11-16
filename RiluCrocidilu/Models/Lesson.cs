@@ -7,6 +7,7 @@ namespace RiluCrocidilu.Models
     {
         public Lesson()
         {
+            Attendance = new HashSet<Attendance>();
             Resources = new HashSet<Resources>();
         }
 
@@ -16,6 +17,7 @@ namespace RiluCrocidilu.Models
         public Module Module { get; set; }
         public Homework Homework { get; set; }
         public Presentation Presentation { get; set; }
+        public ICollection<Attendance> Attendance { get; set; }
         public ICollection<Resources> Resources { get; set; }
     }
 }

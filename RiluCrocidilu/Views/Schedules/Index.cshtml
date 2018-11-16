@@ -1,46 +1,81 @@
 ﻿@model IEnumerable<RiluCrocidilu.Models.Schedule>
 
-    @{
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+
+    var availableDates = ["2018-11-19", "2018-11-26"];
+
+    function SetAvailableDates(date) {
+
+        var year = date.getFullYear(),
+            month = ("0" + (date.getMonth() + 1)).slice(-2),
+            day = ("0" + (date.getDate())).slice(-2);
+
+        var formatted = year + '-' + month + '-' + day;
+
+        if ($.inArray(formatted, availableDates) != -1) {
+            return [true, "", "Available"];
+        } else {
+            return [false, "", "unAvailable"];
+        }
+
     }
 
-
-    <div id='calendar'></div>
-
-
-    @*<script src='https://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
-    <script src='https://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>
-
-    <script>
-        $(function () {
-
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                navLinks: true, // can click day/week names to navigate views
-                selectable: true,
-                selectHelper: true,
-                editable: true,
-                eventLimit: true,
-                events: [
-                    {
-                        title: 'TEST',
-                        start: '2018-11-14',
-                        end: '2018-11-14'
-                    }
-                ],
-                eventClick: function (calEvent, jsEvent, view) {
-                    alert(moment(calEvent.start).format('h:mm:ss a'));
-                }
-            })
-
+    $(function () {
+        $("#datepicker").datepicker({
+            beforeShowDay: SetAvailableDates,
+            firstDay: 1,
+            onSelect: function (dateText, inst) {
+                var date = $(this).val();
+                $("#placeholder").text(date);
+                showDetails();
+            }
         });
-    </script>*@
+    });
 
+    function showDetails() {
+        var details = document.getElementById("LessonDetails");
+        if (details.style.display === "none") {
+            details.style.display = "block";
+        }
+    }
+
+   
+</script>
+
+
+<div class="page-content">
+    <span class="header-text">Schedule</span>
+    <div id="datepicker" style="align-self:center"></div>
+
+    <div id="LessonDetails" style="display:none">
+        <table class="details-text">
+            <tr>
+                <td>Date:</td>
+                <td><div id="placeholder"></div></td>
+            </tr>
+            <tr>
+                <td>Location:</td>
+                <td>The Barn</td>
+            </tr>
+            <tr>
+                <td>Attendance:</td>
+                <td>
+                    <button type="button" id="attend" class="green-button"> Will Attend </button>
+                    <button type="button" id="notAttend" class="red-button"> Can't Attend </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+ </div>
 
 
 

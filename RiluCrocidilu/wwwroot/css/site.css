@@ -143,3 +143,49 @@ html, body {
     right: -1000px;
     bottom: 0px;
 }
+
+.green-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.red-button {
+    background-color: #DC143C; /* Red */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+
+.header-text {
+    color: #111;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    margin: 0 0 0;
+    padding: 20px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100vh;
+}
+
+.page-content {
+    background-color: #e0ebeb;
+    height: 100vh;
+    width: 100vh;
+}
+
+.details-text {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 0;

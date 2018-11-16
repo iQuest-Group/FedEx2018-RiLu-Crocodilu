@@ -87,3 +87,13 @@ create table dbo.PrivateMessage
 	Text				nvarchar(max),
 	TimeStamp			datetime default(getdate())
 )
+
+create table dbo.Attendance
+(
+	AttendanceID	int identity(1,1) not null primary key,
+	LessonId		int foreign key references dbo.Lesson(LessonID),
+	UserId			int foreign key references dbo.ModuleUser(UserID),
+	IsAttending		bit
+)
+
+
