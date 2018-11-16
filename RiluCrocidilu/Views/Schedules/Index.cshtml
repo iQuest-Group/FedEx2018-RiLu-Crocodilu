@@ -1,46 +1,46 @@
 ﻿@model IEnumerable<RiluCrocidilu.Models.Schedule>
 
-@{
+    @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<div id='calendar'></div>
+    }
 
 
-@*<script src='~/lib/jquery/dist/jquery.min.js'></script>*@
-<script src='https://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
-<script src='https://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>
+    <div id='calendar'></div>
 
-<script>
-    $(function () {
 
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            navLinks: true, // can click day/week names to navigate views
-            selectable: true,                
-            selectHelper: true,
-            editable: true,
-            eventLimit: true,
-            events: [
-                {
-                    title: 'TEST',
-                    start: '2018-11-14',
-                    end: '2018-11-14'
+    @*<script src='https://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
+    <script src='https://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>
+
+    <script>
+        $(function () {
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                selectHelper: true,
+                editable: true,
+                eventLimit: true,
+                events: [
+                    {
+                        title: 'TEST',
+                        start: '2018-11-14',
+                        end: '2018-11-14'
+                    }
+                ],
+                eventClick: function (calEvent, jsEvent, view) {
+                    alert(moment(calEvent.start).format('h:mm:ss a'));
                 }
-            ],
-            eventClick: function (calEvent, jsEvent, view) {
-                alert(moment(calEvent.start).format('h:mm:ss a'));
-            }
-        })
+            })
 
-    });
-</script>
+        });
+    </script>*@
 
-    
-    
+
+
 
