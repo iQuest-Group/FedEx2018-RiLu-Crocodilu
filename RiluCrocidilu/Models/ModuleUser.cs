@@ -5,6 +5,11 @@ namespace RiluCrocidilu.Models
 {
     public partial class ModuleUser
     {
+        public ModuleUser()
+        {
+            Attendance = new HashSet<Attendance>();
+        }
+
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,5 +23,6 @@ namespace RiluCrocidilu.Models
         public LoggedInUsers LoggedInUsers { get; set; }
         public PrivateMessage PrivateMessageToUser { get; set; }
         public PrivateMessage PrivateMessageUser { get; set; }
+        public ICollection<Attendance> Attendance { get; set; }
     }
 }

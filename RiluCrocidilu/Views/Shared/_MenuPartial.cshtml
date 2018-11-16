@@ -22,6 +22,7 @@
                                 {
                                     <li><a>Lesson @lesson.LessonId</a>
                                         <ul class="submenu3">
+                                            <li><a asp-controller="Attendances" asp-action="Index" asp-route-id="@lesson.LessonId">Attendances</a></li>
                                             <li><a asp-controller="Presentation" asp-action="Index" asp-route-id="@lesson.LessonId">Presentation</a></li>
                                             <li><a asp-controller="Resources" asp-action="Index" asp-route-id="@lesson.LessonId">Resources</a></li>
                                             <li><a asp-controller="Homework" asp-action="Index" asp-route-id="@lesson.LessonId">Homework</a></li>

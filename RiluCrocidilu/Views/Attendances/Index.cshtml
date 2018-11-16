@@ -1,0 +1,25 @@
+﻿@model List<RiluCrocidilu.Models.HomeViewModels.AttendanceViewModel.DisplayUser>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div>
+    <table>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.UserName
+                </td>
+                <td class="Attendance">
+                    @item.IsAttending
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+

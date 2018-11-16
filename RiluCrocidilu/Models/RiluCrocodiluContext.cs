@@ -16,6 +16,7 @@ namespace RiluCrocidilu.Models
         }
 
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Attendance> Attendance { get; set; }
         public virtual DbSet<ChatMessage> ChatMessage { get; set; }
         public virtual DbSet<ChatRoom> ChatRoom { get; set; }
         public virtual DbSet<Homework> Homework { get; set; }
@@ -58,6 +59,21 @@ namespace RiluCrocidilu.Models
                 entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
 
                 entity.Property(e => e.UserName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<Attendance>(entity =>
+            {
+                entity.Property(e => e.AttendanceId).HasColumnName("AttendanceID");
+
+                entity.HasOne(d => d.Lesson)
+                    .WithMany(p => p.Attendance)
+                    .HasForeignKey(d => d.LessonId)
+                    .HasConstraintName("FK__Attendanc__Lesso__3C34F16F");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Attendance)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__Attendanc__UserI__3D2915A8");
             });
 
             modelBuilder.Entity<ChatMessage>(entity =>
