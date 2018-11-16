@@ -5,50 +5,77 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<div id='calendar'>
-    This is my calendar
-</div>
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
 
-    var disableddates = ["12-11-2018", "12-12-2018"];
+    var availableDates = ["2018-11-19", "2018-11-26"];
 
-    function DisableSpecificDates(date) {
+    function SetAvailableDates(date) {
 
-        var m = date.getMonth();
-        var d = date.getDate();
-        var y = date.getFullYear();
+        var year = date.getFullYear(),
+            month = ("0" + (date.getMonth() + 1)).slice(-2),
+            day = ("0" + (date.getDate())).slice(-2);
 
-        // First convert the date in to the mm-dd-yyyy format 
-        // Take note that we will increment the month count by 1 
-        var currentdate = (m + 1) + '-' + d + '-' + y;
+        var formatted = year + '-' + month + '-' + day;
 
-        // We will now check if the date belongs to disableddates array 
-        for (var i = 0; i < disableddates.length; i++) {
-
-            // Now check if the current date is in disabled dates array. 
-            if ($.inArray(currentdate, disableddates) != -1) {
-                return [false];
-            }
+        if ($.inArray(formatted, availableDates) != -1) {
+            return [true, "", "Available"];
+        } else {
+            return [false, "", "unAvailable"];
         }
 
     }
 
     $(function () {
-        $("#datepicker").datepicker(); ({
-            beforeShowDay: available
+        $("#datepicker").datepicker({
+            beforeShowDay: SetAvailableDates,
+            firstDay: 1,
+            onSelect: function (dateText, inst) {
+                var date = $(this).val();
+                $("#placeholder").text(date);
+                showDetails();
+            }
         });
     });
+
+    function showDetails() {
+        var details = document.getElementById("LessonDetails");
+        if (details.style.display === "none") {
+            details.style.display = "block";
+        }
+    }
+
+   
 </script>
 
 
-<div id="datepicker"></div>
+<div class="page-content">
+    <span class="header-text">Schedule</span>
+    <div id="datepicker" style="align-self:center"></div>
 
+    <div id="LessonDetails" style="display:none">
+        <table class="details-text">
+            <tr>
+                <td>Date:</td>
+                <td><div id="placeholder"></div></td>
+            </tr>
+            <tr>
+                <td>Location:</td>
+                <td>The Barn</td>
+            </tr>
+            <tr>
+                <td>Attendance:</td>
+                <td>
+                    <button type="button" id="attend" class="green-button"> Will Attend </button>
+                    <button type="button" id="notAttend" class="red-button"> Can't Attend </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+ </div>
 
 
 
